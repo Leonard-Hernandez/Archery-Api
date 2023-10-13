@@ -7,6 +7,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 @Entity(name = "Archer")
@@ -17,6 +18,9 @@ import java.util.Date;
 @EqualsAndHashCode(of = "idDocument")
 public class Archer {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
+
     @Column(name = "id_document")
     private String idDocument;
 
@@ -24,7 +28,11 @@ public class Archer {
     private String name;
 
     @Column(name = "birthday")
-    private Date birthday;
+    private LocalDate birthday;
+
+    @Column(name = "category")
+    @Enumerated(EnumType.STRING)
+    private Category category;
 
     @Column(name = "gender")
     @Enumerated(EnumType.STRING)
@@ -38,6 +46,7 @@ public class Archer {
         this.idDocument = archerRecordDTO.idDocument();
         this.name = archerRecordDTO.name();
         this.birthday = archerRecordDTO.birthday();
+        this.category = archerRecordDTO.category();
         this.gender = archerRecordDTO.gender();
         this.active = true;
 
@@ -45,5 +54,20 @@ public class Archer {
 
     public void deleteArcher(){this.active = false;}
 
+    public void updateArcher(ArcherEditDTO archerEditDTO) {
+
+        if(archerEditDTO.name() != null){
+            this.name = archerEditDTO.name();
+        }
+
+        if(archerEditDTO.gender() != null){
+            this.gender = archerEditDTO.gender();
+        }
+
+        if(archerEditDTO.category() != null){
+            this.category = archerEditDTO.category();
+        }
+
+    }
 }
 

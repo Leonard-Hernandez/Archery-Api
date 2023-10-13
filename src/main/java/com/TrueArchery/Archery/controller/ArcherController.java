@@ -1,16 +1,17 @@
 package com.TrueArchery.Archery.controller;
 
-import com.TrueArchery.Archery.domain.archer.Archer;
-import com.TrueArchery.Archery.domain.archer.ArcherRecordDTO;
-import com.TrueArchery.Archery.domain.archer.ArcherRepository;
-import com.TrueArchery.Archery.domain.archer.ArcherResponseDTO;
+import com.TrueArchery.Archery.domain.archer.*;
+import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+
+
 @RestController
 @RequestMapping("/archer")
 public class ArcherController {
@@ -24,7 +25,25 @@ public class ArcherController {
         Archer archer = new Archer(archerRecordDTO);
         archerRepository.save(archer);
 
-        return ResponseEntity.ok(new ArcherResponseDTO(archerRecordDTO));
+        return ResponseEntity.ok(new ArcherResponseDTO(archer));
+
+    }
+
+    @GetMapping
+    public ResponseEntity<Page<ArcherResponseDTO>> listArchers( Pageable pageable){
+
+        return ResponseEntity.ok(archerRepository.findByActiveTrue(pageable).map(ArcherResponseDTO::new));
+
+    }
+
+    @PutMapping
+    @Transactional
+    public ResponseEntity<ArcherResponseDTO> editArcher(@RequestBody ArcherEditDTO archerEditDTO){
+
+        Archer archer = archerRepository.getReferenceById(archerEditDTO.id());
+        archer.updateArcher(archerEditDTO);
+
+        return ResponseEntity.ok(new ArcherResponseDTO(archer));
 
     }
 

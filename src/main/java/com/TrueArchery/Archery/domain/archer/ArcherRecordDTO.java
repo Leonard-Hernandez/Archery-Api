@@ -4,7 +4,7 @@ import com.TrueArchery.Archery.domain.gender.Gender;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 public record ArcherRecordDTO(
         @NotBlank
@@ -12,7 +12,9 @@ public record ArcherRecordDTO(
         @NotBlank
         String name,
         @NotNull
-        Date birthday,
+        LocalDate birthday,
+        @NotNull
+        Category category,
         @NotNull
         Gender gender) {
 }
