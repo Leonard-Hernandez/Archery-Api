@@ -7,15 +7,15 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+
 import java.time.LocalDate;
-import java.util.Date;
 
 @Entity(name = "Archer")
 @Table(name = "Archers")
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode(of = "idDocument")
+@EqualsAndHashCode(of = "id")
 public class Archer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -52,8 +52,6 @@ public class Archer {
 
     }
 
-    public void deleteArcher(){this.active = false;}
-
     public void updateArcher(ArcherEditDTO archerEditDTO) {
 
         if(archerEditDTO.name() != null){
@@ -69,5 +67,8 @@ public class Archer {
         }
 
     }
+
+    public void disableArcher() {this.active = false;}
+
 }
 

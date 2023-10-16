@@ -6,10 +6,11 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.UriComponentsBuilder;
 
+import java.net.URI;
 
 
 @RestController
@@ -20,12 +21,13 @@ public class ArcherController {
     private ArcherRepository archerRepository;
 
     @PostMapping
-    public ResponseEntity<ArcherResponseDTO> recordArcher(@RequestBody @Valid ArcherRecordDTO archerRecordDTO){
+    public ResponseEntity<ArcherResponseDTO> recordArcher(@RequestBody @Valid ArcherRecordDTO archerRecordDTO, UriComponentsBuilder componentsBuilder){
 
         Archer archer = new Archer(archerRecordDTO);
         archerRepository.save(archer);
 
-        return ResponseEntity.ok(new ArcherResponseDTO(archer));
+        URI url = componentsBuilder.path("/archer/{id}").buildAndExpand(archer.getId()).toUri();
+        return ResponseEntity.created(url).body(new ArcherResponseDTO(archer));
 
     }
 
@@ -34,6 +36,12 @@ public class ArcherController {
 
         return ResponseEntity.ok(archerRepository.findByActiveTrue(pageable).map(ArcherResponseDTO::new));
 
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<ArcherResponseDTO> getArcherById(@PathVariable Long id){
+        Archer archer = archerRepository.getReferenceById(id);
+        return ResponseEntity.ok(new ArcherResponseDTO(archer));
     }
 
     @PutMapping
@@ -45,6 +53,14 @@ public class ArcherController {
 
         return ResponseEntity.ok(new ArcherResponseDTO(archer));
 
+    }
+
+    @DeleteMapping("/{id}")
+    @Transactional
+    public ResponseEntity disableArcher(@PathVariable Long id){
+        Archer archer = archerRepository.getReferenceById(id);
+        archer.disableArcher();
+        return ResponseEntity.noContent().build();
     }
 
 }
