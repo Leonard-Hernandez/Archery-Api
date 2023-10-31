@@ -5,4 +5,4 @@ CREATE TABLE Archers (
     birthday DATE NOT NULL,
     category varchar(20),
     gender VARCHAR(100) NOT NULL,
-    active tinyint)
+    active tinyint);
