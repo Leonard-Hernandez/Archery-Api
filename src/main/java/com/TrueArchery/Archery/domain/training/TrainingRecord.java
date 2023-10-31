@@ -42,4 +42,7 @@ public class TrainingRecord {
     @Column(name = "record_date")
     private LocalDateTime recordDate;
 
+    @Column(name = "final_score")
+    private int finalScore;
+
 }

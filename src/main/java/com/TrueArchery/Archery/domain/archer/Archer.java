@@ -24,7 +24,7 @@ public class Archer {
     @Column(name = "id_document")
     private String idDocument;
 
-    @Column(name = "name")
+    @Column(name = "archer_name")
     private String name;
 
     @Column(name = "birthday")
