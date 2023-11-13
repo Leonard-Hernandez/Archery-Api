@@ -1,4 +1,4 @@
-CREATE TABLE Archers (
+CREATE TABLE archers (
     id bigint NOT NULL auto_increment PRIMARY KEY,
     id_document VARCHAR(20) UNIQUE,
     name VARCHAR(100) NOT NULL,

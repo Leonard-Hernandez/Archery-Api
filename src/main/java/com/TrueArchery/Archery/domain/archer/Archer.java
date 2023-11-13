@@ -7,11 +7,10 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-
 import java.time.LocalDate;
 
 @Entity(name = "Archer")
-@Table(name = "Archers")
+@Table(name = "archers")
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
@@ -54,7 +53,7 @@ public class Archer {
 
     public void updateArcher(ArcherEditDTO archerEditDTO) {
 
-        if(archerEditDTO.name() != null){
+        if(archerEditDTO.name() != null && archerEditDTO.name() != ""){
             this.name = archerEditDTO.name();
         }
 

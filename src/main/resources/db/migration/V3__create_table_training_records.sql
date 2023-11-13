@@ -7,4 +7,4 @@ distance varchar(15) not null,
 target varchar(50) not null,
 record_date datetime not null,
 primary key (id),
-CONSTRAINT `FK_ARCHERS` FOREIGN KEY (`ID_ARCHER`) REFERENCES `ARCHERS` (`ID`));
+CONSTRAINT `FK_ARCHERS` FOREIGN KEY (`id_archer`) REFERENCES `archers` (`ID`));
