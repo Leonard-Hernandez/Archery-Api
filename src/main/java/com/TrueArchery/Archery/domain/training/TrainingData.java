@@ -9,13 +9,13 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
-@Entity(name = "TrainingRecord")
-@Table(name = "Training_records")
+@Entity(name = "TrainingData")
+@Table(name = "Training_Data")
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")
-public class TrainingRecord {
+public class TrainingData {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

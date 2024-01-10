@@ -12,7 +12,7 @@ public record ArcherRecordDTO(
         @NotBlank
         String name,
         @NotNull
-        LocalDate birthday,
+        LocalDate birthdate,
         @NotNull
         Category category,
         @NotNull
