@@ -2,6 +2,7 @@ package com.TrueArchery.Archery.controller;
 
 import com.TrueArchery.Archery.domain.user.AuthenticationDTO;
 import com.TrueArchery.Archery.domain.user.User;
+import com.TrueArchery.Archery.domain.user.UserService;
 import com.TrueArchery.Archery.infra.security.JWTTokenDTO;
 import com.TrueArchery.Archery.infra.security.TokenService;
 import jakarta.validation.Valid;
@@ -24,6 +25,18 @@ public class LoginController {
 
     @Autowired
     private TokenService tokenService;
+
+    @Autowired
+    private UserService userService;
+
+    @PostMapping("register")
+    public ResponseEntity register(@RequestBody @Valid AuthenticationDTO data){
+
+        userService.saveUser(data);
+
+        return ResponseEntity.ok().build();
+        
+    }
 
     @PostMapping
     public ResponseEntity<JWTTokenDTO> authenticationUser(@RequestBody @Valid AuthenticationDTO data){

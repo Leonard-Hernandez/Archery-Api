@@ -27,6 +27,7 @@ public class SecurityConfig {
         return httpSecurity.csrf().disable().sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and().authorizeRequests().requestMatchers(HttpMethod.POST, "/login")
+                .permitAll().and().authorizeRequests().requestMatchers(HttpMethod.POST, "/login/register")
                 .permitAll()
                 .anyRequest()
                 .authenticated().and()
