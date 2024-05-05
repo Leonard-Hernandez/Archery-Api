@@ -15,9 +15,9 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")
-public class TrainingData {
+public class TrainingData {    
 
-    @Id
+	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
@@ -43,6 +43,25 @@ public class TrainingData {
     private LocalDateTime recordDate;
 
     @Column(name = "final_score")
-    private int finalScore;
+    private Integer finalScore;
+
+    public TrainingData(Archer archer, Integer rounds, Integer arrowsShots, Distance distance, Target target,
+            LocalDateTime recordDate, Integer finalScore) {
+        
+        this.archer = archer;
+        this.rounds = rounds;
+        this.arrowsShots = arrowsShots;
+        this.distance = distance;
+        this.target = target;
+        if (recordDate == null) {
+            this.recordDate = LocalDateTime.now();
+        }else {
+            this.recordDate = recordDate;
+        }
+       
+        this.finalScore = finalScore;
+    }
+
+    
 
 }
