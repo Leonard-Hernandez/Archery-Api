@@ -1,5 +1,6 @@
 package com.TrueArchery.Archery.domain.training;
 
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -37,6 +38,18 @@ public class TrainingService {
 
         return new TrainingDataRecordDTO(data);
 
+    }
+
+    public List<TrainingDataRecordDTO> getTrainingData(Long id) {
+
+        if (archerRepository.findById(id).isEmpty()) {
+            throw new RuntimeException("Archer not found");            
+        }
+
+        List<TrainingData> data = trainingDataRepository.findByArcherId(id);
+
+        return data.stream().map(TrainingDataRecordDTO::new).toList();
+        
     }
 
 }
