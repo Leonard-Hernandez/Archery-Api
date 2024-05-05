@@ -26,8 +26,8 @@ public class Archer {
     @Column(name = "archer_name")
     private String name;
 
-    @Column(name = "birthdate")
-    private LocalDate birthdate;
+    @Column(name = "birthday")
+    private LocalDate birthday;
 
     @Column(name = "category")
     @Enumerated(EnumType.STRING)
@@ -44,7 +44,7 @@ public class Archer {
 
         this.idDocument = archerRecordDTO.idDocument();
         this.name = archerRecordDTO.name();
-        this.birthdate = archerRecordDTO.birthdate();
+        this.birthday = archerRecordDTO.birthday();
         this.category = archerRecordDTO.category();
         this.gender = archerRecordDTO.gender();
         this.active = true;
