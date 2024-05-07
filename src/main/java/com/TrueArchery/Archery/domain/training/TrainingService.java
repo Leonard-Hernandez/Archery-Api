@@ -6,6 +6,9 @@ import org.springframework.stereotype.Service;
 
 import com.TrueArchery.Archery.domain.archer.Archer;
 import com.TrueArchery.Archery.domain.archer.ArcherRepository;
+import com.TrueArchery.Archery.infra.errors.ArcherNotFoundException;
+import com.TrueArchery.Archery.infra.errors.InvalidFinalScoreException;
+import com.TrueArchery.Archery.infra.errors.TrainingDataNotFoundException;
 
 @Service
 public class TrainingService {
@@ -18,19 +21,12 @@ public class TrainingService {
 
     public TrainingDataRecordDTO recordTrainingData(TrainingDataRecordDTO trainingData) {
 
-        Archer archer;
-
-        if (!archerRepository.findById(trainingData.id_archer()).isPresent()) {
-            throw new RuntimeException("Archer not found");            
-        }else {
-            archer = archerRepository.findById(trainingData.id_archer()).get();
-        }
+        Archer archer = archerRepository.findById(trainingData.id_archer())
+        .orElseThrow(() -> new ArcherNotFoundException("archer not found"));
 
         if ((trainingData.arrowsShots() * 10)<= trainingData.finalScore()) {
-            throw new RuntimeException("Final score not reached");            
-        }
-
-        
+            throw new InvalidFinalScoreException("Invalid final score");            
+        }        
 
         TrainingData data = new TrainingData(archer, trainingData.rounds(), trainingData.arrowsShots(), trainingData.distance(), trainingData.target(), trainingData.recordDate(), trainingData.finalScore());
         
@@ -42,11 +38,13 @@ public class TrainingService {
 
     public List<TrainingDataRecordDTO> getTrainingData(Long id) {
 
-        if (archerRepository.findById(id).isEmpty()) {
-            throw new RuntimeException("Archer not found");            
-        }
+        Archer archer = archerRepository.findById(id)
+                .orElseThrow(() -> new ArcherNotFoundException("Archer not found"));
 
         List<TrainingData> data = trainingDataRepository.findByArcherId(id);
+        if (data.isEmpty()) {
+            throw new TrainingDataNotFoundException("No training data found for archer with id: " + id);
+        }
 
         return data.stream().map(TrainingDataRecordDTO::new).toList();
         

@@ -41,5 +41,19 @@ public class ExceptionManager {
         return ResponseEntity.badRequest().body(e.getMessage());
     }
 
+    @ExceptionHandler(ArcherNotFoundException.class)
+    public ResponseEntity manageArcherNotFoundException(ArcherNotFoundException e) {
+        return ResponseEntity.notFound().build();
+    }
+
+    @ExceptionHandler(TrainingDataNotFoundException.class)
+    public ResponseEntity manageTrainingDataNotFoundException(TrainingDataNotFoundException e) {
+        return ResponseEntity.notFound().build();
+    }
+
+    @ExceptionHandler(InvalidFinalScoreException.class)
+    public ResponseEntity manageInvalidFinalScoreException(InvalidFinalScoreException e) {
+        return ResponseEntity.badRequest().body(e.getMessage());
+    }
 
 }
