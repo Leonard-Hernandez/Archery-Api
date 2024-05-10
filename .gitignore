@@ -35,3 +35,6 @@ build/
 ## user
 .env
 src/main/resources/application-prod.properties
+Dockerfile
+fly.toml
+.dockerignore
