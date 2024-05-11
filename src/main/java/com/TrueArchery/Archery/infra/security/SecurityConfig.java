@@ -22,43 +22,64 @@ public class SecurityConfig {
     @Autowired
     SecurityFilter securityFilter;
 
-    //  @Bean
-    //  public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
+    // @Bean
+    // public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity)
+    // throws Exception {
 
-    //      return httpSecurity.csrf(csrf -> csrf.disable()).sessionManagement()
-    //              .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-    //              .and().authorizeRequests().requestMatchers(HttpMethod.POST, "/login")
-    //              .permitAll().and().authorizeRequests().requestMatchers(HttpMethod.POST, "/login/register")
-    //              .permitAll()
-    //              .anyRequest()
-    //              .authenticated().and()
-    //              .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
-    //              .build();
+    // return httpSecurity.csrf(csrf -> csrf.disable()).sessionManagement()
+    // .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+    // .and().authorizeRequests().requestMatchers(HttpMethod.POST, "/login")
+    // .permitAll().and().authorizeRequests().requestMatchers(HttpMethod.POST,
+    // "/login/register")
+    // .permitAll()
+    // .anyRequest()
+    // .authenticated().and()
+    // .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
+    // .build();
 
-    //}
+    // }
+
+    // @Bean
+    // public SecurityFilterChain securityFilterChain(HttpSecurity http) throws
+    // Exception {
+    // http
+    // .csrf(csrf -> csrf.disable())
+    // .sessionManagement(session ->
+    // session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+    // .authorizeHttpRequests(authorize -> authorize
+    // .requestMatchers(HttpMethod.POST, "/login").permitAll()
+    // .requestMatchers(HttpMethod.POST, "/login/register").permitAll()
+    // .anyRequest().authenticated()
+    // )
+    // .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class);
+
+    // return http.build();
+    // }
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .csrf(csrf -> csrf.disable())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .cors() // Habilitar configuración CORS
+                .and()
                 .authorizeHttpRequests(authorize -> authorize
-                                .requestMatchers(HttpMethod.POST, "/login").permitAll()
-                                .requestMatchers(HttpMethod.POST, "/login/register").permitAll()
-                                .anyRequest().authenticated()
-                )
+                        .requestMatchers(HttpMethod.POST, "/login").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/login/register").permitAll()
+                        .anyRequest().authenticated())
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class);
-    
-    return http.build();
-}
+
+        return http.build();
+    }
 
     @Bean
-    public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration)
+            throws Exception {
         return authenticationConfiguration.getAuthenticationManager();
     }
 
     @Bean
-    public PasswordEncoder passwordEncoder(){
+    public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
