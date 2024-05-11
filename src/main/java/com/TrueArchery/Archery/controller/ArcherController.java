@@ -14,6 +14,7 @@ import java.net.URI;
 
 
 @RestController
+@CrossOrigin(origins = "*", methods= {RequestMethod.GET,RequestMethod.POST,RequestMethod.PUT,RequestMethod.DELETE})
 @RequestMapping("/archer")
 public class ArcherController {
 
