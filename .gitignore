@@ -37,3 +37,4 @@ build/
 Dockerfile
 fly.toml
 .dockerignore
+src/main/resources/application-prod.properties
