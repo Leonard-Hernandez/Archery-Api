@@ -38,3 +38,4 @@ Dockerfile
 fly.toml
 .dockerignore
 src/main/resources/application-prod.properties
+src/main/resources/static/secrets.js

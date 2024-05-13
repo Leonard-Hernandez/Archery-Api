@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Crear Perfil de Arquero - Arquería App</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Crear Perfil de Arquero</h1>
+    <div id="profile-form">
+      <input type="text" id="idDocument" placeholder="Documento de identificación">
+      <input type="text" id="archerName" placeholder="Nombre del arquero">
+      <input type="date" id="birthday" placeholder="Fecha de nacimiento">
+      <select id="category">
+        <option value="" disabled selected>Categoría</option>
+        <option value="COMPOUNT">COMPOUNT</option>
+        <option value="RECURVE">RECURVE</option>
+        <option value="MONOBLOC">MONOBLOC</option>
+      </select>
+      <select id="gender">
+        <option value="" disabled selected>Género</option>
+        <option value="MALE">MALE</option>
+        <option value="FEMALE">FEMALE</option>
+        <option value="OTHER">OTHER</option>
+      </select>
+      <button onclick="createArcherProfile()">Crear Perfil</button>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

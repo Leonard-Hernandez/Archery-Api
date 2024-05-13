@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Registro de Entrenamientos - Arquería App</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Registro de Entrenamientos</h1>
+    <div id="training-form">
+      <input type="number" id="rounds" placeholder="Rondas">
+      <input type="number" id="arrowsShots" placeholder="Flechas Disparadas">
+      <select id="distance">
+        <option value="" disabled selected>Distancia</option>
+        <option value="METERS_70">70 Metros</option>
+        <option value="METERS_50">50 Metros</option>
+        <option value="METERS_40">40 Metros</option>
+        <option value="METERS_30">30 Metros</option>
+        <option value="METERS_18">18 Metros</option>
+      </select>
+      <select id="target">
+        <option value="" disabled selected>Objetivo</option>
+        <option value="CM122_10_TO_1">122 cm (10 a 1)</option>
+        <option value="CM80_10_TO_5">80 cm (10 a 5)</option>
+        <option value="CM40_10_TO_6">40 cm (10 a 6)</option>
+      </select>
+      <input type="date" id="recordDate" placeholder="Fecha del entrenamiento">
+      <input type="number" id="finalScore" placeholder="Puntuación final">
+      <button onclick="uploadTraining()">Registrar Entrenamiento</button>
+      <a href="summary.html" class="button">Resumen de Entrenamientos</a>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
